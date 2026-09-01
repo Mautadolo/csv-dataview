@@ -10,7 +10,7 @@
     "dataview",
     "query"
   ],
-  "repository": "https://github.com/DEIN-GITHUB-NAME/csv-dataview",
+  "repository": "https://github.com/Mautadolo/csv-dataview",
   "license": "MIT",
   "engines": {
     "pulsar": ">=1.100.0",
@@ -20,9 +20,9 @@
   "deserializers": {
     "CsvDataView": "deserializeCsvDataView"
   },
-  "author": "Dein Name",
+  "author": "Mautadolo",
   "bugs": {
-    "url": "https://github.com/DEIN-GITHUB-NAME/csv-dataview/issues"
+    "url": "https://github.com/Mautadolo/csv-dataview/issues"
   },
   "consumedServices": {
     "status-bar": {
