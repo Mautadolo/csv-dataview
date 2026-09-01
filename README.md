@@ -1,5 +1,148 @@
 # csv-dataview
 
+Opens CSV, TSV and similar files in Pulsar as a real table instead of plain text —
+frozen header, sorting, resizable columns, filters, and in-cell editing. One click
+switches back to the normal text view.
+
+![preview](media/screenshot.png)
+[selfReference](https://packages.pulsar-edit.dev/packages/csv-dataview)
+
+## Install
+
+```bash
+pulsar -p install csv-dataview
+```
+
+Open any `.csv` and it comes up as a table. No TextEditor is created, so there is no
+syntax highlighting churning away in the background on large files.
+
+## Usage
+
+| Action | How |
+| --- | --- |
+| Sort ascending / descending / off | Click the column name |
+| Sort by several columns | Shift-click adds a level; the digit shows its rank |
+| Resize / auto-fit a column | Drag its right edge / double-click it |
+| Move a column | Drag the header sideways |
+| Hide a column | Right-click the header |
+| Filter everything | Field top left, `ctrl-f` |
+| Per-column filter row | `ctrl-shift-f` |
+| Edit a cell | Double-click, `Enter` or `F2`; typing a character starts right away |
+| Commit an edit | `Enter` moves down, `Tab` moves right, Shift reverses |
+| Clear cells / insert row / delete rows | `Del` / `ctrl-alt-n` / `ctrl-alt-r` |
+| Undo / redo | `ctrl-z` / `ctrl-shift-z` |
+| Save | `ctrl-s` |
+| Select a range | Shift-click or Shift + arrows, `ctrl-a` for everything |
+| Copy selection / with headers | `ctrl-c` / `ctrl-shift-c` (tab separated, pastes into Excel) |
+| Go to row | `ctrl-g` |
+| Show a long value in full | `alt-enter` |
+| Stats bar on / off | `ctrl-shift-s` |
+| Save the filtered result | `ctrl-alt-s`, writes `name.gefiltert.csv` next to the original |
+| Switch table ↔ text | `ctrl-alt-t`, the toolbar switch, or the status bar entry |
+
+Sorting follows the column type: numbers numerically (`1.234,56` and `1,234.56` both
+work), dates chronologically, everything else alphabetically. Empty cells go last and
+ties keep their order from the file.
+
+Delimiter and header row are detected automatically and can be overridden in the
+toolbar. External changes reload the view. Sorting, filters, column widths, order and
+hidden columns survive a restart of Pulsar.
+
+## Filters
+
+The field at the top left is a small query language. Column names are
+case-insensitive; names containing spaces go in square brackets.
+
+```
+berlin                              full-text search across all columns
+revenue > 1000                      numeric comparison
+country == DE and revenue >= 1000   combined
+[First Column] contains gmbh        substring
+name == "Ber*"                      wildcard
+not (country == DE)                 negation
+comment is empty                    empty cells, also: is not empty
+date >= 2024-01-01                  date comparison
+name ~ ^Sch                         regular expression
+$3 > 5                              column by number when there is no header
+```
+
+Operators are `== = != <> < <= > >= ~ =~ contains startswith endswith matches`,
+combined with `and or not` (or `&& || !`) and parentheses. An incomplete expression
+tints the field and the status line names the error; nothing is filtered until it
+parses.
+
+The per-column fields are shorter: a plain substring by default, otherwise `> 100`,
+`<= 5`, `!= open`, `Ber*`, `/^ab/`, `empty` and `!empty`.
+
+## Editing
+
+Changed cells get a coloured stripe, the tab shows the usual unsaved-changes dot, and
+Pulsar asks before closing. Saving keeps the delimiter and line ending of the original
+file.
+
+Two things worth knowing:
+
+- Nothing is re-filtered or re-sorted after an edit, otherwise the row under your
+  cursor would jump away. The next filter run puts it in its place.
+- Saving rewrites the whole file with minimal quoting: fields are quoted only when
+  they contain a delimiter, a quote or a line break. Redundant quotes from the
+  original are gone afterwards. Set `quoteAllOnSave` if you would rather keep
+  everything quoted.
+
+## Large files
+
+The file is streamed in 1 MB chunks with progress in the status line, and only the
+visible rows plus a small buffer are ever in the DOM, so scrolling stays fast no
+matter how long the file is. Column widths are measured once from a sample and then
+fixed, so the table does not jitter while you scroll.
+
+Reference figures: 500,000 rows (14 MB) load in about a second, a filter across all
+rows takes roughly 340 ms.
+
+Memory is the limit, since every row is held as strings. Files above 256 MB ask before
+loading, and `maxRows` caps the row count for anything larger.
+
+## Settings
+
+| Setting | Default | Meaning |
+| --- | --- | --- |
+| `openAutomatically` | on | open CSV files as a table right away |
+| `extensions` | `csv, tsv, tab, psv` | which extensions the table takes over |
+| `firstRowIsHeader` | on | treat the first row as the header |
+| `rowHeight` | 24 | row height in pixels |
+| `maxFileSizeMB` | 256 | size above which loading asks first (0 = never) |
+| `maxRows` | 0 | hard row limit (0 = unlimited) |
+| `quoteAllOnSave` | off | quote every field when saving |
+
+## Development
+
+```bash
+ppm link      # in the package folder
+pulsar --dev
+ppm test
+```
+
+```
+lib/csv-parser.js    RFC 4180 parser as a state machine, delimiter and type detection
+lib/csv-loader.js    streaming reader with progress and cancellation
+lib/query.js         tokenizer and recursive-descent parser for the query language
+lib/column-filter.js the short expressions of the per-column filter row
+lib/stats.js         aggregates for the stats bar
+lib/csv-view.js      the workspace item: virtualised table, sorting, selection, editing
+lib/main.js          opener, commands, settings, serialisation
+```
+
+## License
+
+MIT
+
+
+
+
+
+
+# csv-dataview
+
 Öffnet CSV-, TSV- und ähnliche Dateien in Pulsar als echte Tabelle statt als Textdatei —
 mit fixierter Kopfzeile, Sortierung, verschiebbaren Spaltenbreiten, Filterfeld und
 Bearbeiten direkt in den Zellen. Ein Klick wechselt jederzeit zur normalen Textansicht.
