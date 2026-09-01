@@ -1,0 +1,354 @@
+@import "ui-variables";
+
+.csv-dataview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: @base-background-color;
+  color: @text-color;
+  font-family: @font-family;
+  font-size: @font-size;
+  outline: none;
+}
+
+.csv-dataview-toolbar {
+  display: flex;
+  align-items: center;
+  gap: @component-padding / 2;
+  padding: @component-padding / 2;
+  border-bottom: 1px solid @base-border-color;
+  background-color: @tool-panel-background-color;
+
+  .csv-dataview-query {
+    flex: 1 1 auto;
+    min-width: 12em;
+    font-family: @font-family;
+  }
+
+  .csv-dataview-query-error {
+    border-color: @background-color-error;
+  }
+
+  .csv-dataview-controls {
+    display: flex;
+    align-items: center;
+    gap: @component-padding / 2;
+    flex: 0 0 auto;
+  }
+
+  .csv-dataview-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+.csv-dataview-status {
+  padding: 3px @component-padding;
+  border-bottom: 1px solid @base-border-color;
+  background-color: @tool-panel-background-color;
+  color: @text-color-subtle;
+  font-size: @font-size - 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.csv-dataview-status-error {
+    color: @text-color-error;
+  }
+
+  .btn {
+    margin-left: @component-padding / 2;
+  }
+}
+
+.csv-dataview-scroller {
+  flex: 1 1 auto;
+  overflow: auto;
+  position: relative;
+}
+
+.csv-dataview-table {
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 100%;
+
+  th,
+  td {
+    padding: 0 8px;
+    border-right: 1px solid @base-border-color;
+    border-bottom: 1px solid fade(@base-border-color, 55%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    vertical-align: middle;
+    line-height: 1.4;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: @panel-heading-background-color;
+    border-bottom: 1px solid @base-border-color;
+    font-weight: normal;
+    color: @text-color-highlight;
+    user-select: none;
+  }
+
+  th {
+    position: relative;
+  }
+
+  .csv-dataview-header-label {
+    display: block;
+    padding: 4px 0;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  th.sort-asc .csv-dataview-header-label::after {
+    content: " ▲";
+    color: @text-color-info;
+    font-size: 0.8em;
+  }
+
+  th.sort-desc .csv-dataview-header-label::after {
+    content: " ▼";
+    color: @text-color-info;
+    font-size: 0.8em;
+  }
+
+  th.csv-type-number .csv-dataview-header-label,
+  td.numeric {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .csv-dataview-resizer {
+    position: absolute;
+    top: 0;
+    right: -3px;
+    width: 7px;
+    height: 100%;
+    cursor: col-resize;
+    z-index: 3;
+  }
+
+  .csv-dataview-gutter {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    text-align: right;
+    color: @text-color-subtle;
+    background-color: @tool-panel-background-color;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+
+  thead .csv-dataview-gutter {
+    z-index: 4;
+    background-color: @panel-heading-background-color;
+  }
+
+  tbody tr.odd td {
+    background-color: fade(@text-color, 3%);
+  }
+
+  tbody tr.odd .csv-dataview-gutter {
+    background-color: @tool-panel-background-color;
+  }
+
+  tbody tr:hover td {
+    background-color: fade(@background-color-info, 8%);
+  }
+
+  tbody tr.selected td {
+    background-color: fade(@background-color-selected, 60%);
+  }
+
+  td.selected-cell {
+    box-shadow: inset 0 0 0 2px @background-color-info;
+  }
+
+  td.empty::after {
+    content: "–";
+    color: fade(@text-color-subtle, 55%);
+  }
+
+  .csv-dataview-spacer td {
+    padding: 0;
+    border: none;
+    background: none;
+  }
+}
+
+// --- Erweiterungen: Mehrfachsortierung, Spaltenfilter, Auswahl, Statistik ---
+
+.csv-dataview-toolbar .btn.selected {
+  background-color: @button-background-color-selected;
+  color: @text-color-selected;
+}
+
+.csv-dataview-status .csv-dataview-goto {
+  width: 8em;
+  height: 1.6em;
+  margin-left: @component-padding / 2;
+}
+
+.csv-dataview-table {
+  th.drop-before { box-shadow: inset 2px 0 0 @text-color-info; }
+  th.drop-after { box-shadow: inset -2px 0 0 @text-color-info; }
+
+  .csv-dataview-sort-badge {
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    font-size: 0.75em;
+    line-height: 1;
+    padding: 1px 3px;
+    border-radius: 2px;
+    color: @text-color-info;
+    background-color: fade(@background-color-info, 20%);
+    pointer-events: none;
+  }
+
+  tr.csv-dataview-filter-row th {
+    position: sticky;
+    z-index: 2;
+    padding: 2px 3px;
+    background-color: @panel-heading-background-color;
+    border-bottom: 1px solid @base-border-color;
+  }
+
+  .csv-dataview-column-filter {
+    width: 100%;
+    height: 1.7em;
+    padding: 0 4px;
+    font-size: @font-size - 1;
+    font-family: @font-family;
+    color: @text-color;
+    background-color: @input-background-color;
+    border: 1px solid @base-border-color;
+    border-radius: @component-border-radius;
+
+    &.active {
+      border-color: @text-color-info;
+      color: @text-color-highlight;
+    }
+  }
+
+  tbody td.in-range {
+    background-color: fade(@background-color-selected, 45%);
+  }
+
+  tbody tr.selected td.csv-dataview-gutter {
+    color: @text-color-highlight;
+  }
+}
+
+.csv-dataview-dragging {
+  cursor: grabbing;
+
+  .csv-dataview-header-label { cursor: grabbing; }
+}
+
+.csv-dataview-stats {
+  flex: 0 0 auto;
+  padding: 3px @component-padding;
+  border-top: 1px solid @base-border-color;
+  background-color: @tool-panel-background-color;
+  color: @text-color-subtle;
+  font-size: @font-size - 1;
+  white-space: nowrap;
+  overflow-x: auto;
+
+  .btn { margin-left: @component-padding / 2; }
+}
+
+.csv-dataview-inspector {
+  flex: 0 0 auto;
+  max-height: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: @component-padding / 2 @component-padding;
+  border-top: 1px solid @base-border-color;
+  background-color: @tool-panel-background-color;
+
+  .csv-dataview-inspector-title {
+    color: @text-color-subtle;
+    font-size: @font-size - 1;
+    margin-bottom: 3px;
+  }
+
+  .csv-dataview-inspector-body {
+    flex: 1 1 auto;
+    overflow: auto;
+    margin: 0;
+    padding: 4px 6px;
+    max-height: 10em;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: @text-color;
+    background-color: @base-background-color;
+    border: 1px solid @base-border-color;
+    border-radius: @component-border-radius;
+  }
+
+  .csv-dataview-inspector-actions {
+    display: flex;
+    gap: @component-padding / 2;
+    margin-top: 4px;
+  }
+}
+
+// --- Bearbeiten und Umschalter -------------------------------------------
+
+.csv-dataview-modes {
+  flex: 0 0 auto;
+  margin-right: @component-padding / 2;
+}
+
+.csv-dataview-table {
+  td.edited {
+    box-shadow: inset 2px 0 0 @text-color-warning;
+  }
+
+  td.editing {
+    padding: 0;
+    box-shadow: inset 0 0 0 2px @text-color-info;
+  }
+
+  .csv-dataview-cell-editor {
+    width: 100%;
+    height: 100%;
+    padding: 0 6px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    color: @text-color-highlight;
+    background-color: @input-background-color;
+    font-family: @font-family;
+    font-size: @font-size;
+  }
+}
+
+.csv-dataview-switch {
+  cursor: pointer;
+
+  .csv-dataview-switch-label {
+    color: @text-color-subtle;
+  }
+
+  &:hover .csv-dataview-switch-label {
+    color: @text-color-highlight;
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "CSV Dataview",
+          "submenu": [
+            {
+              "label": "Als Tabelle öffnen",
+              "command": "csv-dataview:open-as-table"
+            },
+            {
+              "label": "Als Text öffnen",
+              "command": "csv-dataview:open-as-text"
+            },
+            {
+              "label": "Umschalten",
+              "command": "csv-dataview:toggle"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "label": "Zelle bearbeiten",
+              "command": "csv-dataview:edit-cell"
+            },
+            {
+              "label": "Zeile einfügen",
+              "command": "csv-dataview:insert-row"
+            },
+            {
+              "label": "Zeilen löschen",
+              "command": "csv-dataview:delete-rows"
+            },
+            {
+              "type": "separator"
+            },
+            {
+              "label": "Spaltenfilter",
+              "command": "csv-dataview:toggle-column-filters"
+            },
+            {
+              "label": "Statistik",
+              "command": "csv-dataview:toggle-stats"
+            },
+            {
+              "label": "Zu Zeile springen",
+              "command": "csv-dataview:go-to-row"
+            },
+            {
+              "label": "Alle Spalten einblenden",
+              "command": "csv-dataview:show-all-columns"
+            },
+            {
+              "label": "Gefiltert speichern",
+              "command": "csv-dataview:save-filtered"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Als Tabelle öffnen",
+        "command": "csv-dataview:open-as-table"
+      }
+    ],
+    ".csv-dataview thead th": [
+      {
+        "label": "Aufsteigend sortieren",
+        "command": "csv-dataview:sort-ascending"
+      },
+      {
+        "label": "Absteigend sortieren",
+        "command": "csv-dataview:sort-descending"
+      },
+      {
+        "label": "Als weitere Sortierebene",
+        "command": "csv-dataview:add-sort"
+      },
+      {
+        "label": "Sortierung aufheben",
+        "command": "csv-dataview:clear-sort"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "Breite an Inhalt anpassen",
+        "command": "csv-dataview:fit-column"
+      },
+      {
+        "label": "Alle Breiten anpassen",
+        "command": "csv-dataview:fit-all-columns"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "Spalte ausblenden",
+        "command": "csv-dataview:hide-column"
+      },
+      {
+        "label": "Alle Spalten einblenden",
+        "command": "csv-dataview:show-all-columns"
+      }
+    ],
+    ".csv-dataview tbody td": [
+      {
+        "label": "Zelle bearbeiten",
+        "command": "csv-dataview:edit-cell"
+      },
+      {
+        "label": "Wert anzeigen",
+        "command": "csv-dataview:show-value"
+      },
+      {
+        "label": "Zellen leeren",
+        "command": "csv-dataview:clear-cells"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "Zeile einfügen",
+        "command": "csv-dataview:insert-row"
+      },
+      {
+        "label": "Zeilen löschen",
+        "command": "csv-dataview:delete-rows"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "Auswahl kopieren",
+        "command": "csv-dataview:copy-selection"
+      },
+      {
+        "label": "Auswahl mit Kopfzeile kopieren",
+        "command": "csv-dataview:copy-with-header"
+      },
+      {
+        "label": "Sichtbare Zeilen als CSV kopieren",
+        "command": "csv-dataview:copy-as-csv"
+      },
+      {
+        "label": "Gefiltert speichern",
+        "command": "csv-dataview:save-filtered"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "Neu laden",
+        "command": "csv-dataview:reload"
+      },
+      {
+        "label": "Als Text öffnen",
+        "command": "csv-dataview:open-as-text"
+      }
+    ]
+  }
+}

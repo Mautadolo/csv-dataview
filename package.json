@@ -1,0 +1,34 @@
+{
+  "name": "csv-dataview",
+  "main": "./lib/main",
+  "version": "0.0.0",
+  "description": "Öffnet CSV/TSV-Dateien als sortier- und filterbare Tabelle mit einer kleinen Query-Sprache.",
+  "keywords": [
+    "csv",
+    "tsv",
+    "table",
+    "dataview",
+    "query"
+  ],
+  "repository": "https://github.com/DEIN-GITHUB-NAME/csv-dataview",
+  "license": "MIT",
+  "engines": {
+    "pulsar": ">=1.100.0",
+    "atom": ">=1.60.0 <2.0.0"
+  },
+  "dependencies": {},
+  "deserializers": {
+    "CsvDataView": "deserializeCsvDataView"
+  },
+  "author": "Dein Name",
+  "bugs": {
+    "url": "https://github.com/DEIN-GITHUB-NAME/csv-dataview/issues"
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    }
+  }
+}

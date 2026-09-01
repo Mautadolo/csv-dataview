@@ -1,0 +1,35 @@
+{
+  "atom-workspace": {
+    "ctrl-alt-t": "csv-dataview:toggle"
+  },
+  ".csv-dataview": {
+    "ctrl-f": "csv-dataview:focus-filter",
+    "cmd-f": "csv-dataview:focus-filter",
+    "ctrl-shift-f": "csv-dataview:toggle-column-filters",
+    "cmd-shift-f": "csv-dataview:toggle-column-filters",
+    "ctrl-g": "csv-dataview:go-to-row",
+    "cmd-g": "csv-dataview:go-to-row",
+    "ctrl-c": "csv-dataview:copy-selection",
+    "cmd-c": "csv-dataview:copy-selection",
+    "ctrl-shift-c": "csv-dataview:copy-with-header",
+    "cmd-shift-c": "csv-dataview:copy-with-header",
+    "ctrl-alt-c": "csv-dataview:copy-as-csv",
+    "ctrl-a": "csv-dataview:select-all",
+    "cmd-a": "csv-dataview:select-all",
+    "ctrl-alt-s": "csv-dataview:save-filtered",
+    "ctrl-shift-s": "csv-dataview:toggle-stats",
+    "f5": "csv-dataview:reload",
+    "enter": "csv-dataview:edit-cell",
+    "f2": "csv-dataview:edit-cell",
+    "alt-enter": "csv-dataview:show-value",
+    "delete": "csv-dataview:clear-cells",
+    "backspace": "csv-dataview:clear-cells",
+    "ctrl-alt-n": "csv-dataview:insert-row",
+    "ctrl-alt-r": "csv-dataview:delete-rows",
+    "ctrl-z": "core:undo",
+    "cmd-z": "core:undo",
+    "ctrl-shift-z": "core:redo",
+    "cmd-shift-z": "core:redo",
+    "ctrl-y": "core:redo"
+  }
+}
