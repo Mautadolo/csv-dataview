@@ -5,6 +5,7 @@ mit fixierter Kopfzeile, Sortierung, verschiebbaren Spaltenbreiten, Filterfeld u
 Bearbeiten direkt in den Zellen. Ein Klick wechselt jederzeit zur normalen Textansicht.
 
 ![Die Tabellenansicht mit Spaltenfiltern und Statistikleiste](media/screenshot.png)
+[selfReference](https://packages.pulsar-edit.dev/packages/csv-dataview)
 
 ## Installation
 
