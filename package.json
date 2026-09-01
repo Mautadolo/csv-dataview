@@ -1,7 +1,7 @@
 {
   "name": "csv-dataview",
   "main": "./lib/main",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Öffnet CSV/TSV-Dateien als sortier- und filterbare Tabelle mit einer kleinen Query-Sprache.",
   "keywords": [
     "csv",
