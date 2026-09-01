@@ -4,6 +4,8 @@
 mit fixierter Kopfzeile, Sortierung, verschiebbaren Spaltenbreiten, Filterfeld und
 Bearbeiten direkt in den Zellen. Ein Klick wechselt jederzeit zur normalen Textansicht.
 
+![Die Tabellenansicht mit Spaltenfiltern und Statistikleiste](media/screenshot.png)
+
 ## Installation
 
 Nach der Veröffentlichung in der Pulsar Package Registry:
@@ -212,4 +214,3 @@ pulsar -p publish minor      # 0.0.0 -> 0.1.0, taggt, pusht und registriert
 
 Ob der Name noch frei ist, zeigt
 `https://packages.pulsar-edit.dev/packages/csv-dataview`.
-
